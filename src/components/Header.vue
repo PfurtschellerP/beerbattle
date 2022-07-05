@@ -16,6 +16,7 @@
     flex-flow: row-nowrap;
     height: 10vh;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 3vh;
   }
 
   img {
