@@ -4,7 +4,7 @@
       <div class="beerA beer clickable" @click="vote('0')">
         <img :src="beers[0].img" alt="Beer A" />
         <h3>{{ beers[0].name }}</h3>
-        <p class="rating">Rating: {{ beers[0].rating }}</p>
+        <!-- <p class="rating">Rating: {{ beers[0].rating }}</p> -->
       </div>
 
       <div class="seperator-father">
@@ -14,7 +14,7 @@
       <div class="beerB beer clickable" @click="vote('1')">
         <img :src="beers[1].img" alt="Beer B" />
         <h3>{{ beers[1].name }}</h3>
-        <p class="rating">Rating: {{ beers[1].rating }}</p>
+        <!-- <p class="rating">Rating: {{ beers[1].rating }}</p> -->
       </div>
     </div>
 
