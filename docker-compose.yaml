@@ -1,0 +1,6 @@
+services:
+  brillianquizadmin:
+    build: .
+    restart: always
+    ports:
+      - 80:80
