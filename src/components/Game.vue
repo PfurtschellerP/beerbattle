@@ -1,67 +1,165 @@
 <template>
-  <div class="main">
+  <section class="game">
+    <h2>The game</h2>
     <div class="game">
-      <div class="beerA beer">
-        <img src="https://static.hanos.com/sys-master/productimages/h37/hfe/9755509850142/01111675_lev.jpg_256Wx256H"
-          alt="Beer A" />
-        <h3>{{ beerA.name }}</h3>
+      <div class="beerA" @click="vote('0')">
+        <img :src="beers[0].img" alt="Beer A" />
+        <h3>{{ beers[0].name }} (Rating: {{ beers[0].rating }})</h3>
       </div>
-      <div class="beerB beer">
-        <img src="https://static.hanos.com/sys-master/productimages/h5a/hfd/9639302529054/01400360_lev.jpg_256Wx256H"
-          alt="Beer B" />
-        <h3>{{ beerB.name }}</h3>
+      <h2 class="seperator">Or</h2>
+      <div class="beerB" @click="vote('1')">
+        <img :src="beers[1].img" alt="Beer B" />
+        <h3>{{ beers[1].name }} (Rating: {{ beers[1].rating }})</h3>
       </div>
     </div>
-    <div class="description">
-      <p>Get your beer from the tap and decide which one you prefer.</p>
-      <p>This round is between {{ beerA.name }} and {{ beerB.name }}.</p>
-    </div>
-  </div>
+  </section>
+  <section class="leaderboard">
+    <h2>Leaderboard</h2>
+    <table>
+      <tr class="tableHeader">
+        <th>Name</th>
+        <th>Rating</th>
+        <th>Votes</th>
+      </tr>
+      <tr v-for="record in data" :key="record.name">
+        <td>{{ record.name }}</td>
+        <td>{{ record.rating }}</td>
+        <td>{{ record.votes }}</td>
+      </tr>
+    </table>
+  </section>
+  <section class="debug">
+    <h2>Debug</h2>
+    <p>{{ JSON.stringify(data) }}</p>
+  </section>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+  import { reactive, onMounted, computed } from 'vue';
+  import EloRating from 'elo-rating';
 
-const beerA = ref({
-  name: "La Chouffe"
-})
-const beerB = ref({
-  name: "San Miguel"
-})
+  const data = reactive([
+    {
+      name: 'Bitburger',
+      img: '/assets/beers/bitburger.jpeg',
+      rating: 1000,
+      votes: 0,
+    },
+    {
+      name: 'Heineken',
+      img: '/assets/beers/heineken.png',
+      rating: 500,
+      votes: 0,
+    },
+    {
+      name: 'Öttinger',
+      img: '/assets/beers/oettinger.jpeg',
+      rating: 100,
+      votes: 0,
+    },
+    {
+      name: 'Paulaner',
+      img: '/assets/beers/paulaner.png',
+      rating: 750,
+      votes: 0,
+    },
+    {
+      name: 'Becks',
+      img: '/assets/beers/becks.jpeg',
+      rating: 600,
+      votes: 0,
+    },
+  ]);
+
+  const beers = reactive([
+    {
+      name: 'Loading',
+      img: '/assets/beers/bitburger.jpeg',
+      rating: 0,
+      votes: 0,
+    },
+    {
+      name: 'Loading',
+      img: '/assets/beers/heineken.png',
+      rating: 0,
+      votes: 0,
+    },
+  ]);
+  var beerAIndex = 0;
+  var beerBIndex = 0;
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+  const sortLeaderboard = () => {
+    data.values = data.sort((a, b) => {
+      return a.rating < b.rating ? 1 : -1;
+    });
+  };
+
+  const shuffleBeers = () => {
+    // draw two random beers
+    beerAIndex = getRandomInt(data.length);
+    beerBIndex = getRandomInt(data.length);
+
+    while (beerAIndex == beerBIndex) beerBIndex = getRandomInt(data.length);
+
+    beers[0] = data[beerAIndex];
+    beers[1] = data[beerBIndex];
+
+    sortLeaderboard();
+  };
+  onMounted(shuffleBeers);
+
+  const vote = async (beer) => {
+    const ratingA = parseFloat(beers[0].rating);
+    const ratingB = parseFloat(beers[1].rating);
+
+    const aWins = beer == '0' ? true : false;
+
+    const result = EloRating.calculate(beers[0].rating, beers[1].rating, aWins);
+
+    data[beerAIndex].rating = result.playerRating;
+    data[beerBIndex].rating = result.opponentRating;
+    data[beerAIndex].votes++;
+    data[beerBIndex].votes++;
+    shuffleBeers();
+  };
+
+  const leaderboard = computed((data) => {
+    return _.orderBy(this.data, 'rating');
+  });
 </script>
 
 <style scoped>
-.main {
-  display: flex;
-  flex-direction: column;
-}
+  div.game {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+  }
 
-.game {
-  display: flex;
-  justify-content: space-between;
-}
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
 
-img {
-  width: 100%;
-  border-radius: 1rem;
-  mix-blend-mode: multiply;
-}
+  th {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 
-.beer {
-  flex: 1;
-  /* border: 1px solid red; */
-  box-shadow: 0px 2px 10px -8px rgba(0, 0, 0, .7);
-  border-radius: 1rem;
-  text-align: center;
-  padding: 1rem 0;
-}
+  td {
+    border-top: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.02);
+  }
 
-.description {
-  text-align: center;
-}
+  img {
+    height: 20vh;
+  }
 
-h3 {
-  padding: 0;
-  margin: 0;
-}
+  h2.seperator {
+    line-height: 20vh;
+  }
 </style>
