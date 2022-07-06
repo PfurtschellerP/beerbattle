@@ -7,6 +7,8 @@
         <p class="rating">Rating: {{ beers[0].rating }}</p>
       </div>
 
+      <h2 class="seperator">VS</h2>
+
       <div class="beerB beer" @click="vote('1')">
         <img :src="beers[1].img" alt="Beer B" />
         <h3>{{ beers[1].name }}</h3>
@@ -167,7 +169,7 @@ td {
 
 img {
   height: 30vw;
-  border-radius: 1rem;
+  border-radius: 1rem 1rem 0 0;
   mix-blend-mode: multiply;
 }
 
@@ -177,6 +179,7 @@ img {
   border-radius: 1rem;
   text-align: center;
   padding: 1rem 0;
+  background-color: white;
 }
 
 .description {
@@ -192,6 +195,7 @@ h2.seperator {
   line-height: 20vh;
   color: darkred;
   font-weight: bolder;
+  padding: .2rem;
 }
 
 h3,
