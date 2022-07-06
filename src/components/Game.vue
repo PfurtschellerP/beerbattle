@@ -24,7 +24,7 @@
     </div>
 
     <div class="leaderboard">
-      <h2>Leaderboard</h2>
+      <h3>Leaderboard</h3>
       <table>
         <tr class="tableHeader">
           <th>Name</th>
@@ -179,7 +179,6 @@ td {
 .main {
   display: flex;
   flex-direction: column;
-  padding-bottom: 2rem;
 }
 
 .game {
@@ -221,6 +220,10 @@ h2.seperator {
   color: darkred;
   font-weight: bolder;
   padding: 2vw;
+}
+
+.leaderboard h3, table {
+  margin: 0px;
 }
 
 h3,

@@ -16,7 +16,7 @@ import Game from './components/Game.vue';
 @import './css/global.css';
 
 :root {
-  --text-color: black;
+  --text-color: #036;
 }
 
 * {

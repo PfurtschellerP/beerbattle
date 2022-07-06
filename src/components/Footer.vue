@@ -12,13 +12,12 @@
 
 <style scoped>
 footer {
-  position: fixed;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
+  text-align: center;
   font-size: x-small;
-  color: lightgray;
+  color: black;
   user-select: none;
+  padding: 1rem 0;
+  color: gray;
 }
 
 footer p {
