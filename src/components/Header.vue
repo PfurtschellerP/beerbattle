@@ -16,7 +16,7 @@ nav {
 }
 
 #logo {
-  width: 25vw;
+  width: 8rem;
   margin-top: 5vh;
 }
 
