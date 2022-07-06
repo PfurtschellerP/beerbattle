@@ -20,7 +20,9 @@ import Game from './components/Game.vue';
 body {
   height: 100vh;
   margin: 0;
+  background-color: rgba(153, 204, 255, 0.2);
   background: linear-gradient(rgba(153, 204, 255, 0.2), rgba(0, 51, 102, 0.2));
+  background-attachment: fixed;
 }
 
 #app {
