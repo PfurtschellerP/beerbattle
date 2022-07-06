@@ -13,6 +13,8 @@ import Game from './components/Game.vue';
 </script>
 
 <style>
+@import './css/global.css';
+
 :root {
   --text-color: black;
 }
@@ -30,7 +32,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-color);
-  margin: 0 10vw 0;
+  margin: 0 10vw 0 10vw;
   height: 100%;
 }
 
