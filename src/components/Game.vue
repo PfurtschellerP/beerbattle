@@ -7,7 +7,9 @@
         <p class="rating">Rating: {{ beers[0].rating }}</p>
       </div>
 
-      <h2 class="seperator">VS</h2>
+      <div class="seperator-father">
+        <h2 class="seperator">VS</h2>
+      </div>
 
       <div class="beerB beer" @click="vote('1')">
         <img :src="beers[1].img" alt="Beer B" />
@@ -191,8 +193,13 @@ h3 {
   margin: 0;
 }
 
+.seperator-father {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 h2.seperator {
-  line-height: 20vh;
   color: darkred;
   font-weight: bolder;
   padding: .2rem;
