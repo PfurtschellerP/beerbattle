@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="game">
-      <div class="beerA beer" @click="vote('0')">
+      <div class="beerA beer clickable" @click="vote('0')">
         <img :src="beers[0].img" alt="Beer A" />
         <h3>{{ beers[0].name }}</h3>
         <p class="rating">Rating: {{ beers[0].rating }}</p>
@@ -11,7 +11,7 @@
         <h2 class="seperator">VS</h2>
       </div>
 
-      <div class="beerB beer" @click="vote('1')">
+      <div class="beerB beer clickable" @click="vote('1')">
         <img :src="beers[1].img" alt="Beer B" />
         <h3>{{ beers[1].name }}</h3>
         <p class="rating">Rating: {{ beers[1].rating }}</p>
@@ -148,20 +148,38 @@ const leaderboard = computed((data) => {
 table {
   border-collapse: collapse;
   width: 100%;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  box-shadow: 0 0 10px -2px rgba(0, 0, 0, 0.15);
+}
+
+tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+  cursor: crosshair;
+}
+
+tr:hover {
+  filter: brightness(95%);
 }
 
 th {
   background-color: rgba(0, 0, 0, 0.1);
+  padding: 12px 15px;
 }
 
 td {
   border-top: 1px solid black;
   background-color: rgba(0, 0, 0, 0.02);
+  padding: 12px 15px;
 }
 
 .main {
   display: flex;
   flex-direction: column;
+  padding-bottom: 2rem;
 }
 
 .game {
@@ -202,7 +220,7 @@ h3 {
 h2.seperator {
   color: darkred;
   font-weight: bolder;
-  padding: .2rem;
+  padding: 2vw;
 }
 
 h3,
