@@ -1,38 +1,67 @@
 <template>
-  <div class="game">
-    <div class="beerA">
-      <img
-        src="https://th.bing.com/th/id/R.7f3e661653e3e7d9e14eb63d3a4bf16f?rik=ijn6%2f2QYDutfpw&pid=ImgRaw&r=0"
-        alt="Beer A"
-      />
-      <h3>Beer A</h3>
+  <div class="main">
+    <div class="game">
+      <div class="beerA beer">
+        <img src="https://static.hanos.com/sys-master/productimages/h37/hfe/9755509850142/01111675_lev.jpg_256Wx256H"
+          alt="Beer A" />
+        <h3>{{ beerA.name }}</h3>
+      </div>
+      <div class="beerB beer">
+        <img src="https://static.hanos.com/sys-master/productimages/h5a/hfd/9639302529054/01400360_lev.jpg_256Wx256H"
+          alt="Beer B" />
+        <h3>{{ beerB.name }}</h3>
+      </div>
     </div>
-    <h2>Or</h2>
-    <div class="beerB">
-      <img
-        src="https://th.bing.com/th/id/R.2b4a5b8e76bcae6dfa573a91787fb02c?rik=UliQxhLS6Ee%2bFA&pid=ImgRaw&r=0"
-        alt="Beer B"
-      />
-      <h3>Beer B</h3>
+    <div class="description">
+      <p>Get your beer from the tap and decide which one you prefer.</p>
+      <p>This round is between {{ beerA.name }} and {{ beerB.name }}.</p>
     </div>
   </div>
 </template>
 
+<script setup>
+import { ref } from 'vue';
+
+const beerA = ref({
+  name: "La Chouffe"
+})
+const beerB = ref({
+  name: "San Miguel"
+})
+</script>
+
 <style scoped>
-  .game {
-    display: grid;
-    grid-template-columns: 2fr 1fr 2fr;
-    grid-template-rows: 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-  }
+.main {
+  display: flex;
+  flex-direction: column;
+}
 
-  img {
-    height: 20vh;
-  }
+.game {
+  display: flex;
+  justify-content: space-between;
+}
 
-  h2 {
-    line-height: 20vh;
-    vertical-align: center;
-  }
+img {
+  width: 100%;
+  border-radius: 1rem;
+  mix-blend-mode: multiply;
+}
+
+.beer {
+  flex: 1;
+  /* border: 1px solid red; */
+  box-shadow: 0px 2px 10px -8px rgba(0, 0, 0, .7);
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.description {
+  text-align: center;
+}
+
+h3 {
+  padding: 0;
+  margin: 0;
+}
 </style>
