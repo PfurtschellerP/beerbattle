@@ -1,25 +1,139 @@
 <template>
-  <div class="game">
-    <div class="beerA">
-      <img
-        src="https://th.bing.com/th/id/R.7f3e661653e3e7d9e14eb63d3a4bf16f?rik=ijn6%2f2QYDutfpw&pid=ImgRaw&r=0"
-        alt="Beer A"
-      />
-      <h3>Beer A</h3>
+  <section class="game">
+    <h2>The game</h2>
+    <div class="game">
+      <div class="beerA" @click="vote('0')">
+        <img :src="beers[0].img" alt="Beer A" />
+        <h3>{{ beers[0].name }} (Rating: {{ beers[0].rating }})</h3>
+      </div>
+      <h2 class="seperator">Or</h2>
+      <div class="beerB" @click="vote('1')">
+        <img :src="beers[1].img" alt="Beer B" />
+        <h3>{{ beers[1].name }} (Rating: {{ beers[1].rating }})</h3>
+      </div>
     </div>
-    <h2>Or</h2>
-    <div class="beerB">
-      <img
-        src="https://th.bing.com/th/id/R.2b4a5b8e76bcae6dfa573a91787fb02c?rik=UliQxhLS6Ee%2bFA&pid=ImgRaw&r=0"
-        alt="Beer B"
-      />
-      <h3>Beer B</h3>
-    </div>
-  </div>
+  </section>
+  <section class="leaderboard">
+    <h2>Leaderboard</h2>
+    <table>
+      <tr class="tableHeader">
+        <th>Name</th>
+        <th>Rating</th>
+        <th>Votes</th>
+      </tr>
+      <tr v-for="record in data" :key="record.name">
+        <td>{{ record.name }}</td>
+        <td>{{ record.rating }}</td>
+        <td>{{ record.votes }}</td>
+      </tr>
+    </table>
+  </section>
+  <section class="debug">
+    <h2>Debug</h2>
+    <p>{{ JSON.stringify(data) }}</p>
+  </section>
 </template>
 
+<script setup>
+  import { reactive, onMounted, computed } from 'vue';
+  import EloRating from 'elo-rating';
+
+  const data = reactive([
+    {
+      name: 'Bitburger',
+      img: '/assets/beers/bitburger.jpeg',
+      rating: 1000,
+      votes: 0,
+    },
+    {
+      name: 'Heineken',
+      img: '/assets/beers/heineken.png',
+      rating: 500,
+      votes: 0,
+    },
+    {
+      name: 'Öttinger',
+      img: '/assets/beers/oettinger.jpeg',
+      rating: 100,
+      votes: 0,
+    },
+    {
+      name: 'Paulaner',
+      img: '/assets/beers/paulaner.png',
+      rating: 750,
+      votes: 0,
+    },
+    {
+      name: 'Becks',
+      img: '/assets/beers/becks.jpeg',
+      rating: 600,
+      votes: 0,
+    },
+  ]);
+
+  const beers = reactive([
+    {
+      name: 'Loading',
+      img: '/assets/beers/bitburger.jpeg',
+      rating: 0,
+      votes: 0,
+    },
+    {
+      name: 'Loading',
+      img: '/assets/beers/heineken.png',
+      rating: 0,
+      votes: 0,
+    },
+  ]);
+  var beerAIndex = 0;
+  var beerBIndex = 0;
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+  const sortLeaderboard = () => {
+    data.values = data.sort((a, b) => {
+      return a.rating < b.rating ? 1 : -1;
+    });
+  };
+
+  const shuffleBeers = () => {
+    // draw two random beers
+    beerAIndex = getRandomInt(data.length);
+    beerBIndex = getRandomInt(data.length);
+
+    while (beerAIndex == beerBIndex) beerBIndex = getRandomInt(data.length);
+
+    beers[0] = data[beerAIndex];
+    beers[1] = data[beerBIndex];
+
+    sortLeaderboard();
+  };
+  onMounted(shuffleBeers);
+
+  const vote = async (beer) => {
+    const ratingA = parseFloat(beers[0].rating);
+    const ratingB = parseFloat(beers[1].rating);
+
+    const aWins = beer == '0' ? true : false;
+
+    const result = EloRating.calculate(beers[0].rating, beers[1].rating, aWins);
+
+    data[beerAIndex].rating = result.playerRating;
+    data[beerBIndex].rating = result.opponentRating;
+    data[beerAIndex].votes++;
+    data[beerBIndex].votes++;
+    shuffleBeers();
+  };
+
+  const leaderboard = computed((data) => {
+    return _.orderBy(this.data, 'rating');
+  });
+</script>
+
 <style scoped>
-  .game {
+  div.game {
     display: grid;
     grid-template-columns: 2fr 1fr 2fr;
     grid-template-rows: 1fr;
@@ -27,12 +141,25 @@
     grid-row-gap: 0px;
   }
 
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  td {
+    border-top: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+
   img {
     height: 20vh;
   }
 
-  h2 {
+  h2.seperator {
     line-height: 20vh;
-    vertical-align: center;
   }
 </style>
