@@ -19,6 +19,10 @@ import Game from './components/Game.vue';
   --text-color: black;
 }
 
+* {
+  transition: all .1s ease;
+}
+
 body {
   height: 100vh;
   margin: 0;

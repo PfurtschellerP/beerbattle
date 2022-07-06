@@ -220,7 +220,7 @@ h3 {
 h2.seperator {
   color: darkred;
   font-weight: bolder;
-  padding: .2rem;
+  padding: 2vw;
 }
 
 h3,
