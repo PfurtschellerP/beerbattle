@@ -1,0 +1,11 @@
+a,
+button,
+.clickable {
+  cursor: pointer;
+}
+
+a:hover,
+button:hover,
+.clickable:hover {
+  filter: brightness(105%);
+}
