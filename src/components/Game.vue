@@ -155,7 +155,7 @@ table {
 }
 
 tr {
-  background-color: #009879;
+  background-color: #336699;
   color: #ffffff;
   text-align: left;
   cursor: crosshair;
