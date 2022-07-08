@@ -36,7 +36,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-color);
-  margin: 0 10vw 0 10vw;
+  margin: 0 6vw 0 6vw;
   height: 100%;
 }
 

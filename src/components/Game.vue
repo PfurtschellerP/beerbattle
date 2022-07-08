@@ -52,33 +52,45 @@ import EloRating from 'elo-rating';
 
 const data = reactive([
   {
-    name: 'Bitburger',
-    img: '/assets/beers/bitburger.jpeg',
-    rating: 1000,
+    name: 'Welde Bourbon Barrel',
+    img: '/assets/beers/welde.jpg',
+    rating: 621,
     votes: 0,
   },
   {
-    name: 'Heineken',
-    img: '/assets/beers/heineken.png',
-    rating: 500,
+    name: 'Kehrwieder Solero IPA',
+    img: '/assets/beers/solero.jpg',
+    rating: 187,
     votes: 0,
   },
   {
-    name: 'Öttinger',
-    img: '/assets/beers/oettinger.jpeg',
-    rating: 100,
+    name: 'Kehrwieder Imperial Stout',
+    img: '/assets/beers/kentucky.jpg',
+    rating: 218,
     votes: 0,
   },
   {
-    name: 'Paulaner',
-    img: '/assets/beers/paulaner.png',
-    rating: 750,
+    name: 'BrewDog Punk IPA',
+    img: '/assets/beers/punk.jpg',
+    rating: 483,
     votes: 0,
   },
   {
-    name: 'Becks',
-    img: '/assets/beers/becks.jpeg',
-    rating: 600,
+    name: 'Winterhuder Helles',
+    img: '/assets/beers/winterhuder.jpg',
+    rating: 349,
+    votes: 0,
+  },
+  {
+    name: 'Craftwerk New England',
+    img: '/assets/beers/craftwerk.jpg',
+    rating: 192,
+    votes: 0,
+  },
+  {
+    name: 'Maisel & Friends BrewBQ',
+    img: '/assets/beers/brewbq.jpg',
+    rating: 510,
     votes: 0,
   },
 ]);
@@ -201,11 +213,15 @@ img {
   background-color: white;
 }
 
+.beer h3 {
+  padding: 0 1vw;
+}
+
 .description {
   text-align: center;
 }
 
-h3 {
+.leaderboard h3 {
   padding: 0;
   margin: 0;
 }
@@ -223,7 +239,7 @@ h2.seperator {
 }
 
 .leaderboard h3, table {
-  margin: 0px;
+  margin: 0;
 }
 
 h3,
