@@ -210,7 +210,8 @@ img {
   border-radius: 1rem;
   text-align: center;
   padding: 1rem 0;
-  background-color: white;
+  background-color: whitesmoke;
+  filter: brightness(120%);
 }
 
 .beer h3 {
