@@ -9,10 +9,10 @@
   },
   "dependencies": {
     "elo-rating": "^1.0.1",
-    "vue": "^3.2.25"
+    "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2.3.3",
-    "vite": "^2.9.9"
+    "@vitejs/plugin-vue": "^4.2.3",
+    "vite": "^4.3.9"
   }
 }
