@@ -47,8 +47,8 @@
 </template>
 
 <script setup>
-import { reactive, onMounted, computed } from 'vue';
 import EloRating from 'elo-rating';
+import { onMounted, reactive } from 'vue';
 
 const data = reactive([
   {
@@ -137,9 +137,6 @@ const shuffleBeers = () => {
 onMounted(shuffleBeers);
 
 const vote = async (beer) => {
-  const ratingA = parseFloat(beers[0].rating);
-  const ratingB = parseFloat(beers[1].rating);
-
   const aWins = beer == '0' ? true : false;
 
   const result = EloRating.calculate(beers[0].rating, beers[1].rating, aWins);
@@ -150,10 +147,6 @@ const vote = async (beer) => {
   data[beerBIndex].votes++;
   shuffleBeers();
 };
-
-const leaderboard = computed((data) => {
-  return _.orderBy(this.data, 'rating');
-});
 </script>
 
 <style scoped>
@@ -239,7 +232,8 @@ h2.seperator {
   padding: 2vw;
 }
 
-.leaderboard h3, table {
+.leaderboard h3,
+table {
   margin: 0;
 }
 
